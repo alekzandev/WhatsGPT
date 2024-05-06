@@ -160,6 +160,6 @@ cython_debug/
 #.idea/
 
 # Data
-*.csv
-*.json
-*.txt
+*-prod.csv
+*-prod.json
+*-prod.txt
