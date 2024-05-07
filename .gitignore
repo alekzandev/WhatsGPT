@@ -161,5 +161,9 @@ cython_debug/
 
 # Data
 *-prod.csv
-*-prod.json
+*-prod.json*
 *-prod.txt
+
+# MacOS
+**.DS_Store
+**.AppleDouble
