@@ -24,10 +24,10 @@ def clean_chat(chat_path: str) -> list:
     chat = [re.sub("\[\d{2}/\d{2}/\d{4}, \d{2}:\d{2}:\d{2}\]", "", line).strip() for line in chat]
     
     # Replace "María Clara Jaramillo" with "mcj"
-    chat = [re.sub("María Clara Jaramillo", "mcj", line) for line in chat]
+    chat = [re.sub("María Clara Jaramillo", "assistant", line) for line in chat]
 
     # Replace "Johny Aleksander" with "me"
-    chat = [re.sub("Johny Aleksander", "jav", line) for line in chat]
+    chat = [re.sub("Johny Aleksander", "user", line) for line in chat]
 
     # Remove stickers messages
     chat = [line for line in chat if not 'sticker omitted' in line]
@@ -56,10 +56,10 @@ def txt_to_json(chat: list) -> dict:
     conversation = []
     starter = extract_sender(chat[0])
     for i, chat_line in enumerate(chat):
-        if 'jav:' in chat_line and starter=='jav':
+        if 'user:' in chat_line and starter=='user':
             single_message = chat_line.split(':')[1]
             complete_message = f'{complete_message}. {single_message.strip()}'
-        elif 'mcj:' in chat_line and starter=='mcj':
+        elif 'assistant:' in chat_line and starter=='assistant':
             single_message = chat_line.split(':')[1]
             complete_message = f'{complete_message}. {single_message.strip()}'
         try:
@@ -69,7 +69,7 @@ def txt_to_json(chat: list) -> dict:
                 complete_message = ''
                 starter = continuer
                 # verify that chat_dict has both keys
-                if 'jav' in chat_dict and 'mcj' in chat_dict:
+                if 'user' in chat_dict and 'assistant' in chat_dict:
                     conversation.append(chat_dict)
                     chat_dict = dict()
         # Exception index out of range
