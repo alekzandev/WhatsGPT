@@ -78,10 +78,10 @@ def txt_to_json(chat: list) -> dict:
     conversation = []
     starter = extract_sender(chat[0])
     for i, chat_line in enumerate(chat):
-        if starter != 'jav' and starter != 'mcj':
+        if starter != 'user' and starter != 'assistant':
             print(f'Role: {starter} ({len(starter)}) \t Message: {chat_line} \t Index: {i}')
 
-        if 'jav:' in chat_line and starter=='jav':
+        if 'user:' in chat_line and starter=='user':
             single_message = chat_line.split(':')[1]
             complete_message = f'{complete_message}. {single_message.strip()}'
         elif 'assistant:' in chat_line and starter=='assistant':
@@ -120,7 +120,7 @@ def format_for_fine_tuning(path: str) -> None:
     transformed_data = {"messages": []}
     for i, messages in enumerate(data):
         for role, content in messages.items():
-            if role != 'jav' and role != 'mcj':
+            if role != 'user' and role != 'assistant':
                 print(f'Role: {role}')
             transformed_data["messages"].append({"role": role, "content": content})
         if i%11 == 0:
